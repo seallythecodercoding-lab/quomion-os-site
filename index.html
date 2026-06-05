@@ -24,7 +24,6 @@
             padding: 0 20px;
         }
 
-        /* Header */
         header {
             background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0f0f1a 100%);
             padding: 20px 0;
@@ -59,7 +58,6 @@
         nav a:hover {
             color: #6a6aff;
         }
-
         .menu-toggle {
             display: none;
             background: none;
@@ -69,7 +67,6 @@
             cursor: pointer;
         }
 
-        /* Hero */
         .hero {
             background: linear-gradient(135deg, #0a0a1a 0%, #12123a 50%, #0a0a1a 100%);
             text-align: center;
@@ -126,7 +123,6 @@
             box-shadow: 0 10px 30px rgba(58, 58, 255, 0.4);
         }
 
-        /* Section Titles */
         section {
             padding: 80px 0;
         }
@@ -141,7 +137,6 @@
             color: #6a6aff;
         }
 
-        /* Propriedades */
         #propriedades {
             background: #0e0e1a;
         }
@@ -178,7 +173,6 @@
             font-size: 15px;
         }
 
-        /* Produtos */
         #produtos {
             background: #0a0a15;
         }
@@ -255,8 +249,34 @@
             color: #888;
             font-weight: 400;
         }
+        .produto-card .pix-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            background: #1a3a2a;
+            color: #7affb4;
+        }
+        .produto-card .comprar-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 8px 28px;
+            background: linear-gradient(135deg, #3a3aff, #6a3aff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .produto-card .comprar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(58, 58, 255, 0.4);
+        }
 
-        /* Contato */
         #contato {
             background: #0e0e1a;
             text-align: center;
@@ -283,7 +303,6 @@
             color: #fff;
         }
 
-        /* Footer */
         footer {
             background: #05050a;
             text-align: center;
@@ -292,12 +311,319 @@
             font-size: 14px;
             border-top: 1px solid #1a1a2e;
         }
+        footer a {
+            color: #6a6aff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            color: #aaa;
+        }
 
-        /* Responsivo */
+        /* ─── Admin Modal ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+        .modal .close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            color: #555;
+            font-size: 22px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        .modal .close:hover {
+            color: #fff;
+        }
+        .modal h2 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .modal p {
+            color: #888;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .modal input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            background: #0e0e1a;
+            color: #e0e0e0;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        .modal input:focus {
+            border-color: #6a6aff;
+        }
+        .modal button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #3a3aff, #6a3aff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            box-shadow: 0 5px 20px rgba(58, 58, 255, 0.4);
+        }
+        .modal .erro {
+            color: #ff4a4a;
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        .modal .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #555;
+            font-size: 13px;
+        }
+        .modal .divider::before,
+        .modal .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #2a2a4a;
+        }
+        .modal .divider::before { margin-right: 15px; }
+        .modal .divider::after { margin-left: 15px; }
+
+        #googleBtn {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        /* ─── Admin Dashboard ─── */
+        #adminPanel {
+            display: none;
+        }
+        #adminPanel.show {
+            display: block;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0f0f1a 100%);
+            padding: 15px 0;
+            border-bottom: 2px solid #3a3aff;
+        }
+        .admin-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-header .logo small {
+            font-size: 12px;
+            font-weight: 400;
+            color: #888;
+        }
+        .admin-header button {
+            padding: 8px 18px;
+            background: #2a2a4a;
+            color: #e0e0e0;
+            border: 1px solid #3a3a5a;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        .admin-header button:hover {
+            background: #3a3a5a;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card .numero {
+            font-size: 32px;
+            font-weight: 800;
+            color: #6a6aff;
+        }
+        .stat-card .rotulo {
+            color: #888;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 20px;
+            background: #1a1a2e;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            color: #aaa;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .tab:hover {
+            border-color: #6a6aff;
+            color: #fff;
+        }
+        .tab.ativo {
+            background: #2a2a5a;
+            border-color: #6a6aff;
+            color: #6a6aff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.ativo {
+            display: block;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            color: #fff;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .card textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            background: #0e0e1a;
+            color: #e0e0e0;
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .card textarea:focus { border-color: #6a6aff; }
+        .card input[type="text"],
+        .card input[type="number"],
+        .card input[type="color"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #2a2a4a;
+            border-radius: 8px;
+            background: #0e0e1a;
+            color: #e0e0e0;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 10px;
+        }
+        .card input:focus { border-color: #6a6aff; }
+        .card input[type="color"] {
+            width: 60px;
+            height: 40px;
+            padding: 2px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #3a3aff, #6a3aff);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn:hover { box-shadow: 0 4px 15px rgba(58, 58, 255, 0.4); }
+        .btn-danger { background: linear-gradient(135deg, #cf3a3a, #a02a2a); }
+        .btn-danger:hover { box-shadow: 0 4px 15px rgba(207, 58, 58, 0.4); }
+        .btn-success { background: linear-gradient(135deg, #2a9a4a, #1a7a3a); }
+        .btn-sm {
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+        .tabela {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .tabela th, .tabela td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #1f1f35;
+            font-size: 14px;
+        }
+        .tabela th { color: #888; font-weight: 600; }
+        .tabela td { color: #ccc; }
+        .tabela tr:hover td { background: #12122a; }
+
+        .badge-ban {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .badge-ban.banido { background: #4a1a1a; color: #ff6a6a; }
+        .badge-ban.liberado { background: #1a3a2a; color: #6aff8a; }
+
+        .vazio {
+            text-align: center;
+            color: #555;
+            padding: 40px;
+            font-size: 16px;
+        }
+
         @media (max-width: 768px) {
-            header .container {
-                flex-wrap: wrap;
-            }
+            header .container { flex-wrap: wrap; }
             nav {
                 display: none;
                 width: 100%;
@@ -305,47 +631,26 @@
                 flex-direction: column;
                 text-align: center;
             }
-            nav.show {
-                display: flex;
-            }
-            nav a {
-                margin: 8px 0;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .hero h1 {
-                font-size: 32px;
-            }
-            .hero p {
-                font-size: 16px;
-            }
-            .section-title {
-                font-size: 28px;
-            }
-            .props-grid {
-                grid-template-columns: 1fr;
-            }
-            .produtos-grid {
-                grid-template-columns: 1fr;
-            }
-            .contato-links {
-                flex-direction: column;
-                gap: 15px;
-            }
-            section {
-                padding: 50px 0;
-            }
-            .hero {
-                padding: 60px 20px 50px;
-            }
-            .produto-card .price {
-                font-size: 22px;
-            }
+            nav.show { display: flex; }
+            nav a { margin: 8px 0; }
+            .menu-toggle { display: block; }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .section-title { font-size: 28px; }
+            .props-grid { grid-template-columns: 1fr; }
+            .produtos-grid { grid-template-columns: 1fr; }
+            .contato-links { flex-direction: column; gap: 15px; }
+            section { padding: 50px 0; }
+            .hero { padding: 60px 20px 50px; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .modal { margin: 20px; padding: 30px; }
+            .card { padding: 18px; }
+            .tabela th, .tabela td { padding: 8px 6px; font-size: 12px; }
         }
     </style>
 </head>
 <body>
+    <!-- ─── SITE ─── -->
     <header>
         <div class="container">
             <div class="logo">Quomion<span>OS</span></div>
@@ -369,46 +674,14 @@
         <div class="container">
             <h2 class="section-title">Propriedades do <span>Quomion OS</span></h2>
             <div class="props-grid">
-                <div class="prop-card">
-                    <div class="icon">⚡</div>
-                    <h3>Alta Performance</h3>
-                    <p>Núcleo otimizado que entrega velocidade máxima em qualquer hardware, de máquinas antigas aos dispositivos mais modernos.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🔒</div>
-                    <h3>Segurança Total</h3>
-                    <p>Arquitetura isolada com criptografia de ponta a ponta, protegendo seus dados contra ameaças e invasões.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🎨</div>
-                    <h3>Interface Adaptável</h3>
-                    <p>Design fluido que se adapta perfeitamente à sua tela, seja em um monitor de 27" ou na tela de um smartphone.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">📦</div>
-                    <h3>Ecosistema Leve</h3>
-                    <p>Apps nativos ultra rápidos e um gerenciador de pacotes inteligente que ocupa pouquíssimo espaço.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🔄</div>
-                    <h3>Atualizações Contínuas</h3>
-                    <p>Receba atualizações frequentes com novos recursos, correções de segurança e melhorias de desempenho.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🌐</div>
-                    <h3>Multiplataforma</h3>
-                    <p>Funciona em PCs (x86/x64) e dispositivos móveis (ARM), com suporte nativo a redes 4G/5G e Wi-Fi.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🔋</div>
-                    <h3>Eficiência Energética</h3>
-                    <p>Gerenciamento inteligente de energia que prolonga a bateria do seu notebook ou celular.</p>
-                </div>
-                <div class="prop-card">
-                    <div class="icon">🧩</div>
-                    <h3>Compatibilidade Total</h3>
-                    <p>Suporte a aplicativos Android, Linux e Windows via camada de compatibilidade nativa.</p>
-                </div>
+                <div class="prop-card"><div class="icon">⚡</div><h3>Alta Performance</h3><p>Núcleo otimizado que entrega velocidade máxima em qualquer hardware, de máquinas antigas aos dispositivos mais modernos.</p></div>
+                <div class="prop-card"><div class="icon">🔒</div><h3>Segurança Total</h3><p>Arquitetura isolada com criptografia de ponta a ponta, protegendo seus dados contra ameaças e invasões.</p></div>
+                <div class="prop-card"><div class="icon">🎨</div><h3>Interface Adaptável</h3><p>Design fluido que se adapta perfeitamente à sua tela, seja em um monitor de 27" ou na tela de um smartphone.</p></div>
+                <div class="prop-card"><div class="icon">📦</div><h3>Ecosistema Leve</h3><p>Apps nativos ultra rápidos e um gerenciador de pacotes inteligente que ocupa pouquíssimo espaço.</p></div>
+                <div class="prop-card"><div class="icon">🔄</div><h3>Atualizações Contínuas</h3><p>Receba atualizações frequentes com novos recursos, correções de segurança e melhorias de desempenho.</p></div>
+                <div class="prop-card"><div class="icon">🌐</div><h3>Multiplataforma</h3><p>Funciona em PCs (x86/x64) e dispositivos móveis (ARM), com suporte nativo a redes 4G/5G e Wi-Fi.</p></div>
+                <div class="prop-card"><div class="icon">🔋</div><h3>Eficiência Energética</h3><p>Gerenciamento inteligente de energia que prolonga a bateria do seu notebook ou celular.</p></div>
+                <div class="prop-card"><div class="icon">🧩</div><h3>Compatibilidade Total</h3><p>Suporte a aplicativos Android, Linux e Windows via camada de compatibilidade nativa.</p></div>
             </div>
         </div>
     </section>
@@ -429,8 +702,8 @@
                         <li>Driver NVIDIA/AMD otimizado</li>
                     </ul>
                     <div class="price">Grátis <span>para uso pessoal</span></div>
+                    <div><span class="pix-badge">💳 PIX</span></div>
                 </div>
-
                 <div class="produto-card">
                     <span class="badge badge-mobile">Mobile</span>
                     <h3>Quomion OS Mobile</h3>
@@ -443,8 +716,8 @@
                         <li>Câmera com processamento IA nativo</li>
                     </ul>
                     <div class="price">Grátis <span>código aberto</span></div>
+                    <div><span class="pix-badge">💳 PIX</span></div>
                 </div>
-
                 <div class="produto-card">
                     <span class="badge badge-ambos">PC + Mobile</span>
                     <h3>Quomion Sync</h3>
@@ -457,6 +730,7 @@
                         <li>Cloud pessoal com 10GB grátis</li>
                     </ul>
                     <div class="price">Grátis <span>para todos</span></div>
+                    <div><span class="pix-badge">💳 PIX</span></div>
                 </div>
             </div>
         </div>
@@ -465,86 +739,8 @@
     <section id="keys">
         <div class="container">
             <h2 class="section-title">Keys <span>Premium</span></h2>
-            <p style="text-align:center;color:#999;max-width:600px;margin:0 auto 40px;">
-                Desbloqueie recursos exclusivos do Quomion OS com nossas keys premium. De R$10 a R$200, escolha a que mais se encaixa no seu estilo.
-            </p>
-            <div class="produtos-grid">
-                <div class="produto-card">
-                    <span class="badge badge-pc">R$ 10</span>
-                    <h3>Key Starter</h3>
-                    <p>Para quem quer começar com o pé direito.</p>
-                    <ul>
-                        <li>Temas exclusivos</li>
-                        <li>Wallpapers 4K</li>
-                        <li>Suporte prioritário 7 dias</li>
-                    </ul>
-                    <div class="price">R$ 10</div>
-                </div>
-                <div class="produto-card">
-                    <span class="badge badge-mobile">R$ 30</span>
-                    <h3>Key Performance</h3>
-                    <p>Mais velocidade e produtividade no seu dia.</p>
-                    <ul>
-                        <li>Modo game otimizado</li>
-                        <li>Boost de RAM e CPU</li>
-                        <li>Desativar anúncios do sistema</li>
-                        <li>Suporte prioritário 30 dias</li>
-                    </ul>
-                    <div class="price">R$ 30</div>
-                </div>
-                <div class="produto-card">
-                    <span class="badge badge-ambos">R$ 50</span>
-                    <h3>Key Security</h3>
-                    <p>Proteção máxima para seus dados.</p>
-                    <ul>
-                        <li>Criptografia avançada de arquivos</li>
-                        <li>Firewall inteligente</li>
-                        <li>VPN nativa ilimitada</li>
-                        <li>Modo anônimo</li>
-                        <li>Suporte prioritário 60 dias</li>
-                    </ul>
-                    <div class="price">R$ 50</div>
-                </div>
-                <div class="produto-card">
-                    <span class="badge badge-pc">R$ 80</span>
-                    <h3>Key Developer</h3>
-                    <p>Ferramentas profissionais para devs.</p>
-                    <ul>
-                        <li>Ambiente Docker nativo</li>
-                        <li>Servidor local integrado</li>
-                        <li>Compiladores otimizados</li>
-                        <li>API de sistema liberada</li>
-                        <li>Suporte prioritário 90 dias</li>
-                    </ul>
-                    <div class="price">R$ 80</div>
-                </div>
-                <div class="produto-card">
-                    <span class="badge badge-mobile">R$ 120</span>
-                    <h3>Key Ultimate Mobile</h3>
-                    <p>A experiência mobile definitiva.</p>
-                    <ul>
-                        <li>Multitarefa avançada (até 4 apps)</li>
-                        <li>Modo desktop via USB-C</li>
-                        <li>Gravação de tela sem limite</li>
-                        <li>IA assistente premium</li>
-                        <li>Suporte prioritário 180 dias</li>
-                    </ul>
-                    <div class="price">R$ 120</div>
-                </div>
-                <div class="produto-card">
-                    <span class="badge badge-ambos">R$ 200</span>
-                    <h3>Key Enterprise</h3>
-                    <p>Tudo incluso, sem limites.</p>
-                    <ul>
-                        <li>Todas as features anteriores</li>
-                        <li>Cloud 500GB</li>
-                        <li>Licença vitalícia</li>
-                        <li>Acesso antecipado a betas</li>
-                        <li>Suporte prioritário vitalício</li>
-                    </ul>
-                    <div class="price">R$ 200</div>
-                </div>
-            </div>
+            <p style="text-align:center;color:#999;max-width:600px;margin:0 auto 40px;">Desbloqueie recursos exclusivos do Quomion OS com nossas keys premium. De R$10 a R$200, escolha a que mais se encaixa no seu estilo.</p>
+            <div class="produtos-grid" id="keysGrid"></div>
         </div>
     </section>
 
@@ -561,15 +757,466 @@
     <footer>
         <div class="container">
             Quomion OS &copy; 2026 — Todos os direitos reservados.
+            <div style="margin-top:10px;font-size:11px;color:#333;">
+                <button onclick="abrirModalAdmin();return false" style="background:none;border:none;color:#333;cursor:pointer;font-size:11px;">⚙️</button>
+            </div>
         </div>
     </footer>
 
+    <!-- ─── MODAL LOGIN ADMIN ─── -->
+    <div class="modal-overlay" id="modalAdmin">
+        <div class="modal">
+            <button class="close" onclick="fecharModalAdmin()">✕</button>
+            <h2>🔐 Painel Admin</h2>
+            <p>Digite a senha ou seu e-mail de administrador.</p>
+            <div id="googleBtn"></div>
+            <div class="divider">ou</div>
+            <input type="text" id="senhaInput" placeholder="Senha ou e-mail admin" onkeydown="if(event.key==='Enter')entrarAdmin()">
+            <button onclick="entrarAdmin()">Entrar</button>
+            <div class="erro" id="erroLogin">Senha ou e-mail incorreto!</div>
+        </div>
+    </div>
+
+    <!-- ─── PAINEL ADMIN ─── -->
+    <div id="adminPanel">
+        <div class="admin-header">
+            <div class="container">
+                <div class="logo">Quomion<span>OS</span> <small>Admin</small></div>
+                <div>
+                    <button onclick="voltarSite()">🌐 Ver Site</button>
+                    <button onclick="sairAdmin()">🚪 Sair</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="padding:30px 20px;">
+            <div class="stats">
+                <div class="stat-card"><div class="numero" id="statVotos">0</div><div class="rotulo">Total de Votos</div></div>
+                <div class="stat-card"><div class="numero" id="statSim">0</div><div class="rotulo">Sim (Quobile)</div></div>
+                <div class="stat-card"><div class="numero" id="statNao">0</div><div class="rotulo">Não</div></div>
+                <div class="stat-card"><div class="numero" id="statFeedbacks">0</div><div class="rotulo">Feedbacks</div></div>
+                <div class="stat-card"><div class="numero" id="statBanidos">0</div><div class="rotulo">Usuários Banidos</div></div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab ativo" data-tab="votos" onclick="mudarTab(this)">🗳️ Votos</div>
+                <div class="tab" data-tab="feedbacks" onclick="mudarTab(this)">💡 Feedbacks</div>
+                <div class="tab" data-tab="banidos" onclick="mudarTab(this)">🚫 Lista Negra</div>
+                <div class="tab" data-tab="editar" onclick="mudarTab(this)">✏️ Editar Site</div>
+                <div class="tab" data-tab="keys" onclick="mudarTab(this)">🔑 Gerenciar Keys</div>
+            </div>
+
+            <div class="tab-content ativo" id="tabVotos">
+                <div class="card"><h3>🗳️ Registro de Votos</h3><div id="votosLista"><div class="vazio">Nenhum voto registrado.</div></div></div>
+            </div>
+
+            <div class="tab-content" id="tabFeedbacks">
+                <div class="card"><h3>💡 Feedbacks Recebidos</h3><div id="feedbacksLista"><div class="vazio">Nenhum feedback ainda.</div></div></div>
+            </div>
+
+            <div class="tab-content" id="tabBanidos">
+                <div class="card">
+                    <h3>🚫 Usuários na Lista Negra</h3>
+                    <div style="display:flex;gap:10px;margin-bottom:15px;">
+                        <input type="text" id="nomeBanir" placeholder="Nome do usuário" style="flex:1;">
+                        <button class="btn" onclick="banirUsuario()">Banir</button>
+                    </div>
+                    <div id="banidosLista"><div class="vazio">Nenhum usuário banido.</div></div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tabEditar">
+                <div class="card">
+                    <h3>✏️ Editar Hero do Site</h3>
+                    <input type="text" id="editTitulo" placeholder="Título do hero">
+                    <textarea id="editDescricao" placeholder="Descrição do hero" style="min-height:80px;"></textarea>
+                    <button class="btn" onclick="salvarHero()">Salvar Hero</button>
+                    <span id="heroStatus" style="color:#6aff8a;margin-left:10px;font-size:13px;"></span>
+                </div>
+                <div class="card">
+                    <h3>🏷️ Editar Nome da Marca</h3>
+                    <input type="text" id="editMarca" placeholder="Nome da marca (ex: Quomion OS)">
+                    <button class="btn" onclick="salvarMarca()">Salvar Marca</button>
+                    <span id="marcaStatus" style="color:#6aff8a;margin-left:10px;font-size:13px;"></span>
+                </div>
+                <div class="card">
+                    <h3>🔑 Configurar Login Google</h3>
+                    <p style="color:#888;font-size:13px;margin-bottom:10px;">Cole seu Google Client ID para ativar o botão "Login com Google".</p>
+                    <input type="text" id="googleClientId" placeholder="Google Client ID">
+                    <button class="btn" onclick="salvarGoogleClientId()">Salvar</button>
+                    <span id="googleStatus" style="color:#6aff8a;margin-left:10px;font-size:13px;"></span>
+                    <p style="color:#555;font-size:12px;margin-top:8px;">Crie em <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#6a6aff;">console.cloud.google.com</a></p>
+                </div>
+                <div class="card">
+                    <h3>🎨 Cores do Tema</h3>
+                    <div style="display:flex;gap:15px;flex-wrap:wrap;">
+                        <div><label style="color:#888;font-size:13px;">Cor primária</label><input type="color" id="corPrimaria" value="#6a6aff"></div>
+                        <div><label style="color:#888;font-size:13px;">Cor secundária</label><input type="color" id="corSecundaria" value="#3a3aff"></div>
+                    </div>
+                    <button class="btn" onclick="salvarCores()" style="margin-top:12px;">Aplicar Cores</button>
+                    <span id="corStatus" style="color:#6aff8a;margin-left:10px;font-size:13px;"></span>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tabKeys">
+                <div class="card">
+                    <h3>🔑 Gerenciar Keys Premium</h3>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;">
+                        <input type="text" id="keyNome" placeholder="Nome da key" style="flex:1;min-width:120px;">
+                        <input type="number" id="keyPreco" placeholder="Preço (R$)" style="width:120px;">
+                        <button class="btn btn-success" onclick="adicionarKey()">Adicionar</button>
+                    </div>
+                    <div id="keysLista"><div class="vazio">Nenhuma key cadastrada.</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
+        // ─── CONSTANTES ───
+        const SENHA = '#</3V)f\\}AwL-6s<_A&E#aI%2pi345b1a`I|(ueh]m*H"w48`';
+        const ADMINS = ['seallythecodercoding@gmail.com', 'noqpor175@gmail.com'];
+
+        // ─── NAVEGAÇÃO ───
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 document.querySelector('nav').classList.remove('show');
             });
         });
+
+        // ─── MODAL ADMIN ───
+        function abrirModalAdmin() {
+            document.getElementById('modalAdmin').classList.add('show');
+            renderGoogleBtn();
+        }
+        function fecharModalAdmin() {
+            document.getElementById('modalAdmin').classList.remove('show');
+            document.getElementById('erroLogin').style.display = 'none';
+        }
+
+        function entrarAdmin() {
+            const s = document.getElementById('senhaInput').value.trim().toLowerCase();
+            if (ADMINS.includes(s)) {
+                fecharModalAdmin();
+                mostrarAdmin();
+                localStorage.setItem('quobileAdminLogado', s);
+                carregarDados();
+                return;
+            }
+            if (s === SENHA) {
+                fecharModalAdmin();
+                mostrarAdmin();
+                localStorage.setItem('quobileAdminLogado', 'senha');
+                carregarDados();
+            } else {
+                document.getElementById('erroLogin').style.display = 'block';
+            }
+        }
+
+        function sairAdmin() {
+            localStorage.removeItem('quobileAdminLogado');
+            document.getElementById('adminPanel').classList.remove('show');
+            document.getElementById('adminPanel').style.display = 'none';
+            window.scrollTo({ top: 0 });
+        }
+
+        function voltarSite() {
+            window.open('https://quomionmania.netlify.app/', '_blank');
+        }
+
+        function mostrarAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = 'block';
+            panel.classList.add('show');
+            document.querySelector('header').style.display = 'none';
+            document.querySelectorAll('section').forEach(s => s.style.display = 'none');
+            document.querySelector('footer').style.display = 'none';
+            panel.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ─── ABAS ───
+        function mudarTab(el) {
+            document.querySelectorAll('#adminPanel .tab').forEach(t => t.classList.remove('ativo'));
+            document.querySelectorAll('#adminPanel .tab-content').forEach(t => t.classList.remove('ativo'));
+            el.classList.add('ativo');
+            document.getElementById('tab' + el.dataset.tab.charAt(0).toUpperCase() + el.dataset.tab.slice(1)).classList.add('ativo');
+        }
+
+        // ─── DADOS ───
+        function getVotos() {
+            return JSON.parse(localStorage.getItem('quobileVotos')) || { sim: 0, nao: 0, feedbacks: [] };
+        }
+        function getBanidos() {
+            return JSON.parse(localStorage.getItem('quobileBanidos')) || [];
+        }
+        function getKeys() {
+            return JSON.parse(localStorage.getItem('quobileKeys')) || [
+                { nome: 'Key Starter', preco: 10 },
+                { nome: 'Key Performance', preco: 30 },
+                { nome: 'Key Security', preco: 50 },
+                { nome: 'Key Developer', preco: 80 },
+                { nome: 'Key Ultimate Mobile', preco: 120 },
+                { nome: 'Key Enterprise', preco: 200 }
+            ];
+        }
+        function getSiteConfig() {
+            return JSON.parse(localStorage.getItem('quobileSiteConfig')) || {
+                titulo: 'O Futuro é Quomion',
+                descricao: 'Um sistema operacional leve, seguro e moderno, projetado para oferecer o máximo de desempenho tanto no seu PC quanto no seu celular.',
+                marca: 'QuomionOS',
+                corPrimaria: '#6a6aff',
+                corSecundaria: '#3a3aff'
+            };
+        }
+
+        function carregarDados() {
+            const votos = getVotos();
+            const banidos = getBanidos();
+            const keys = getKeys();
+            const config = getSiteConfig();
+
+            document.getElementById('statVotos').textContent = votos.sim + votos.nao;
+            document.getElementById('statSim').textContent = votos.sim;
+            document.getElementById('statNao').textContent = votos.nao;
+            document.getElementById('statFeedbacks').textContent = votos.feedbacks.length;
+            document.getElementById('statBanidos').textContent = banidos.length;
+
+            const vLista = document.getElementById('votosLista');
+            const total = votos.sim + votos.nao;
+            if (total === 0) {
+                vLista.innerHTML = '<div class="vazio">Nenhum voto registrado.</div>';
+            } else {
+                vLista.innerHTML = `
+                    <table class="tabela">
+                        <tr><th>Opção</th><th>Votos</th><th>Porcentagem</th></tr>
+                        <tr><td>✅ Sim</td><td>${votos.sim}</td><td>${total ? (votos.sim/total*100).toFixed(1) : 0}%</td></tr>
+                        <tr><td>❌ Não</td><td>${votos.nao}</td><td>${total ? (votos.nao/total*100).toFixed(1) : 0}%</td></tr>
+                    </table>
+                    <div style="margin-top:10px;color:#888;font-size:13px;">Chave: <code>quobileVotos</code></div>
+                `;
+            }
+
+            const fLista = document.getElementById('feedbacksLista');
+            if (votos.feedbacks.length === 0) {
+                fLista.innerHTML = '<div class="vazio">Nenhum feedback ainda.</div>';
+            } else {
+                let html = '';
+                votos.feedbacks.forEach((f, i) => {
+                    html += `<div style="padding:10px 0;border-bottom:1px solid #1f1f35;">
+                        <strong style="color:#6a6aff;">#${i+1}</strong>
+                        <span style="color:#ccc;">${f}</span>
+                        <button class="btn-sm btn-danger" onclick="removerFeedback(${i})" style="float:right;">Excluir</button>
+                    </div>`;
+                });
+                fLista.innerHTML = html;
+            }
+
+            atualizarListaBanidos();
+            atualizarListaKeysAdmin();
+
+            document.getElementById('editTitulo').value = config.titulo;
+            document.getElementById('editDescricao').value = config.descricao;
+            document.getElementById('editMarca').value = config.marca;
+            document.getElementById('corPrimaria').value = config.corPrimaria;
+            document.getElementById('corSecundaria').value = config.corSecundaria;
+            document.getElementById('googleClientId').value = getGoogleClientId();
+            renderizarKeysSite();
+        }
+
+        // ─── KEYS NO SITE ───
+        function renderizarKeysSite() {
+            const keys = getKeys();
+            const grid = document.getElementById('keysGrid');
+            if (keys.length === 0) {
+                grid.innerHTML = '<p style="text-align:center;color:#555;">Nenhuma key disponível no momento.</p>';
+                return;
+            }
+            grid.innerHTML = keys.map(k => `
+                <div class="produto-card">
+                    <span class="badge badge-ambos">R$ ${k.preco}</span>
+                    <h3>${k.nome}</h3>
+                    <div class="price">R$ ${k.preco},00</div>
+                    <div style="margin-top:12px;">
+                        <span class="pix-badge">💳 PIX</span>
+                        <button class="comprar-btn" onclick="comprarKey('${k.nome}', ${k.preco})">Comprar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function comprarKey(nome, preco) {
+            alert('💳 Apenas PIX como forma de pagamento.\n\nKey: ' + nome + '\nValor: R$ ' + preco + ',00\n\nChave PIX: contato@quomionos.com');
+        }
+
+        // ─── LISTA NEGRA ───
+        function banirUsuario() {
+            const nome = document.getElementById('nomeBanir').value.trim();
+            if (!nome) { alert('Digite um nome.'); return; }
+            const banidos = getBanidos();
+            if (banidos.includes(nome)) { alert('Usuário já está banido.'); return; }
+            banidos.push(nome);
+            localStorage.setItem('quobileBanidos', JSON.stringify(banidos));
+            document.getElementById('nomeBanir').value = '';
+            atualizarListaBanidos();
+            document.getElementById('statBanidos').textContent = banidos.length;
+        }
+
+        function desbanirUsuario(nome) {
+            let banidos = getBanidos();
+            banidos = banidos.filter(b => b !== nome);
+            localStorage.setItem('quobileBanidos', JSON.stringify(banidos));
+            atualizarListaBanidos();
+            document.getElementById('statBanidos').textContent = banidos.length;
+        }
+
+        function atualizarListaBanidos() {
+            const banidos = getBanidos();
+            const el = document.getElementById('banidosLista');
+            if (banidos.length === 0) {
+                el.innerHTML = '<div class="vazio">Nenhum usuário banido.</div>';
+                return;
+            }
+            let html = '<table class="tabela"><tr><th>Usuário</th><th>Status</th><th>Ação</th></tr>';
+            banidos.forEach(b => {
+                html += `<tr><td>${b}</td><td><span class="badge-ban banido">🚫 Banido</span></td><td><button class="btn-sm btn-success" onclick="desbanirUsuario('${b}')">Desbanir</button></td></tr>`;
+            });
+            html += '</table>';
+            el.innerHTML = html;
+        }
+
+        // ─── FEEDBACKS ───
+        function removerFeedback(index) {
+            const votos = getVotos();
+            votos.feedbacks.splice(index, 1);
+            localStorage.setItem('quobileVotos', JSON.stringify(votos));
+            carregarDados();
+        }
+
+        // ─── KEYS ADMIN ───
+        function adicionarKey() {
+            const nome = document.getElementById('keyNome').value.trim();
+            const preco = parseInt(document.getElementById('keyPreco').value);
+            if (!nome || !preco) { alert('Preencha nome e preço.'); return; }
+            const keys = getKeys();
+            keys.push({ nome, preco });
+            localStorage.setItem('quobileKeys', JSON.stringify(keys));
+            document.getElementById('keyNome').value = '';
+            document.getElementById('keyPreco').value = '';
+            atualizarListaKeysAdmin();
+            renderizarKeysSite();
+        }
+
+        function removerKey(index) {
+            const keys = getKeys();
+            keys.splice(index, 1);
+            localStorage.setItem('quobileKeys', JSON.stringify(keys));
+            atualizarListaKeysAdmin();
+            renderizarKeysSite();
+        }
+
+        function atualizarListaKeysAdmin() {
+            const keys = getKeys();
+            const el = document.getElementById('keysLista');
+            if (keys.length === 0) {
+                el.innerHTML = '<div class="vazio">Nenhuma key cadastrada.</div>';
+                return;
+            }
+            let html = '<table class="tabela"><tr><th>Key</th><th>Preço</th><th>Ação</th></tr>';
+            keys.forEach((k, i) => {
+                html += `<tr><td>${k.nome}</td><td>R$ ${k.preco},00</td><td><button class="btn-sm btn-danger" onclick="removerKey(${i})">Remover</button></td></tr>`;
+            });
+            html += '</table>';
+            el.innerHTML = html;
+        }
+
+        // ─── EDITAR SITE ───
+        function salvarHero() {
+            const config = getSiteConfig();
+            config.titulo = document.getElementById('editTitulo').value || config.titulo;
+            config.descricao = document.getElementById('editDescricao').value || config.descricao;
+            localStorage.setItem('quobileSiteConfig', JSON.stringify(config));
+            document.getElementById('heroStatus').textContent = '✅ Hero salvo!';
+            setTimeout(() => document.getElementById('heroStatus').textContent = '', 2000);
+        }
+
+        function salvarMarca() {
+            const config = getSiteConfig();
+            config.marca = document.getElementById('editMarca').value || config.marca;
+            localStorage.setItem('quobileSiteConfig', JSON.stringify(config));
+            document.getElementById('marcaStatus').textContent = '✅ Marca salva!';
+            setTimeout(() => document.getElementById('marcaStatus').textContent = '', 2000);
+        }
+
+        function salvarCores() {
+            const config = getSiteConfig();
+            config.corPrimaria = document.getElementById('corPrimaria').value;
+            config.corSecundaria = document.getElementById('corSecundaria').value;
+            localStorage.setItem('quobileSiteConfig', JSON.stringify(config));
+            document.getElementById('corStatus').textContent = '✅ Cores salvas!';
+            setTimeout(() => document.getElementById('corStatus').textContent = '', 2000);
+        }
+
+        // ─── GOOGLE LOGIN ───
+        function getGoogleClientId() {
+            return localStorage.getItem('quobileGoogleClientId') || '';
+        }
+
+        function salvarGoogleClientId() {
+            const id = document.getElementById('googleClientId').value.trim();
+            localStorage.setItem('quobileGoogleClientId', id);
+            document.getElementById('googleStatus').textContent = '✅ Client ID salvo!';
+            setTimeout(() => document.getElementById('googleStatus').textContent = '', 2000);
+            renderGoogleBtn();
+        }
+
+        function renderGoogleBtn() {
+            const clientId = getGoogleClientId();
+            if (!clientId) return;
+            const btn = document.getElementById('googleBtn');
+            if (!btn) return;
+            if (typeof google === 'undefined' || !google.accounts) {
+                setTimeout(renderGoogleBtn, 500);
+                return;
+            }
+            btn.innerHTML = '';
+            google.accounts.id.initialize({
+                client_id: clientId,
+                callback: handleGoogleCredential
+            });
+            google.accounts.id.renderButton(btn, {
+                type: 'standard', shape: 'pill', theme: 'outline',
+                text: 'signin_with', size: 'large', logo_alignment: 'left'
+            });
+        }
+
+        function handleGoogleCredential(response) {
+            try {
+                const parts = response.credential.split('.');
+                const payload = JSON.parse(atob(parts[1]));
+                const email = payload.email.toLowerCase();
+                if (ADMINS.includes(email)) {
+                    fecharModalAdmin();
+                    mostrarAdmin();
+                    localStorage.setItem('quobileAdminLogado', email);
+                    carregarDados();
+                } else {
+                    document.getElementById('erroLogin').textContent = 'Este e-mail não tem permissão de admin!';
+                    document.getElementById('erroLogin').style.display = 'block';
+                }
+            } catch (e) {
+                document.getElementById('erroLogin').textContent = 'Erro ao autenticar com Google.';
+                document.getElementById('erroLogin').style.display = 'block';
+            }
+        }
+
+        // ─── AUTO LOGIN ───
+        if (localStorage.getItem('quobileAdminLogado')) {
+            mostrarAdmin();
+            carregarDados();
+        }
+
+        renderizarKeysSite();
     </script>
 </body>
 </html>
