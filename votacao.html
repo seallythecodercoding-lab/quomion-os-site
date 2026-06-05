@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votação — Quobile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0f0f1a 100%);
+            padding: 20px 0;
+            border-bottom: 2px solid #3a3aff;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .logo span {
+            color: #6a6aff;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+        .hero h1 {
+            font-size: 40px;
+            color: #fff;
+        }
+        .hero h1 span {
+            color: #6a6aff;
+        }
+        .hero p {
+            color: #999;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        .card {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card h3 {
+            color: #fff;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .card label {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            border: 1px solid #2a2a4a;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .card label:hover {
+            background: #1a1a3a;
+            border-color: #6a6aff;
+        }
+
+        .card input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #555;
+            border-radius: 50%;
+            margin-right: 15px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .card input[type="radio"]:checked {
+            border-color: #6a6aff;
+            background: #6a6aff;
+        }
+        .card input[type="radio"]:checked::after {
+            content: '';
+            display: block;
+            margin: 3px;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .card label .label-text {
+            font-size: 17px;
+            color: #ddd;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #2a2a4a;
+            border-radius: 10px;
+            background: #0e0e1a;
+            color: #e0e0e0;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            outline: none;
+        }
+        textarea:focus {
+            border-color: #6a6aff;
+        }
+
+        .btn-votar {
+            display: block;
+            width: 100%;
+            padding: 16px 0;
+            background: linear-gradient(135deg, #3a3aff, #6a3aff);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-votar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(58, 58, 255, 0.4);
+        }
+
+        .resultado {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 2px solid #3a3aff;
+            border-radius: 16px;
+            margin-top: 30px;
+        }
+        .resultado.show {
+            display: block;
+        }
+        .resultado h3 {
+            color: #6a6aff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .resultado p {
+            color: #aaa;
+            font-size: 16px;
+        }
+
+        .votos {
+            margin-top: 30px;
+            padding: 20px;
+            background: #0e0e1a;
+            border-radius: 10px;
+            border: 1px solid #2a2a4a;
+        }
+        .votos h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .barra-container {
+            margin-bottom: 12px;
+        }
+        .barra-label {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .barra {
+            height: 10px;
+            background: #1a1a2e;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .barra-inner {
+            height: 100%;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #3a3aff, #6a3aff);
+            transition: width 0.5s;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #1a1a2e;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 28px; }
+            .card { padding: 20px; }
+            .card label { padding: 12px 14px; }
+            .card label .label-text { font-size: 15px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Quomion<span>OS</span></div>
+    </header>
+
+    <section class="hero">
+        <h1>Votação <span>Quobile</span></h1>
+        <p>Ajude a decidir o início da produção do Quomion OS Mobile</p>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="card">
+                <h3>📱 Iniciar produção do Quobile?</h3>
+                <label><input type="radio" name="inicio" value="Sim"> <span class="label-text">✅ Sim — quero o Quobile agora!</span></label>
+                <label><input type="radio" name="inicio" value="Não"> <span class="label-text">❌ Não — ainda não está na hora</span></label>
+            </div>
+
+            <div class="card">
+                <h3>💡 Ideias e Feedbacks</h3>
+                <p style="color:#888;margin-bottom:12px;">Mande suas sugestões para o que o Quobile deve ter!</p>
+                <textarea id="feedback" placeholder="Ex: queria que tivesse modo escuro inteligente, suporte a dual apps, câmera com IA..."></textarea>
+            </div>
+
+            <button class="btn-votar" onclick="votar()">🗳️ Registrar Voto</button>
+
+            <div class="resultado" id="resultado">
+                <h3>✅ Voto registrado!</h3>
+                <p id="resultadoTexto">Obrigado por participar! 🚀</p>
+            </div>
+
+            <div class="votos">
+                <h4>📊 Resultado ao vivo</h4>
+                <div class="barra-container">
+                    <div class="barra-label">
+                        <span>✅ Sim</span>
+                        <span id="simCount">0 votos</span>
+                    </div>
+                    <div class="barra">
+                        <div class="barra-inner" id="barraSim" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="barra-container">
+                    <div class="barra-label">
+                        <span>❌ Não</span>
+                        <span id="naoCount">0 votos</span>
+                    </div>
+                    <div class="barra">
+                        <div class="barra-inner" id="barraNao" style="width:0%"></div>
+                    </div>
+                </div>
+                <p style="color:#555;font-size:13px;margin-top:12px;">Total: <span id="totalVotos">0</span> votos</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        Quomion OS &copy; 2026 — Votação Quobile
+    </footer>
+
+    <script>
+        let dados = JSON.parse(localStorage.getItem('quobileVotos')) || { sim: 0, nao: 0, feedbacks: [] };
+        let jaVotou = localStorage.getItem('quobilejaVotou') === 'true';
+
+        function atualizarUI() {
+            const total = dados.sim + dados.nao;
+            document.getElementById('totalVotos').textContent = total;
+            document.getElementById('simCount').textContent = dados.sim + ' voto' + (dados.sim !== 1 ? 's' : '');
+            document.getElementById('naoCount').textContent = dados.nao + ' voto' + (dados.nao !== 1 ? 's' : '');
+            document.getElementById('barraSim').style.width = total ? (dados.sim / total * 100) + '%' : '0%';
+            document.getElementById('barraNao').style.width = total ? (dados.nao / total * 100) + '%' : '0%';
+        }
+
+        function votar() {
+            if (jaVotou) {
+                alert('Você já votou! Só é permitido um voto por pessoa.');
+                return;
+            }
+
+            const escolha = document.querySelector('input[name="inicio"]:checked');
+            if (!escolha) {
+                alert('Selecione Sim ou Não para iniciar a produção.');
+                return;
+            }
+
+            const feedback = document.getElementById('feedback').value.trim();
+
+            if (escolha.value === 'Sim') dados.sim++;
+            else dados.nao++;
+
+            if (feedback) {
+                dados.feedbacks.push(feedback);
+            }
+
+            localStorage.setItem('quobileVotos', JSON.stringify(dados));
+            localStorage.setItem('quobilejaVotou', 'true');
+            jaVotou = true;
+
+            document.getElementById('resultadoTexto').textContent =
+                `Você votou "${escolha.value}" para o início do Quobile!` +
+                (feedback ? ' Seu feedback foi enviado. Obrigado!' : '');
+
+            document.getElementById('resultado').classList.add('show');
+            document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+            atualizarUI();
+            document.querySelector('.btn-votar').textContent = '✅ Voto já registrado';
+            document.querySelector('.btn-votar').disabled = true;
+        }
+
+        atualizarUI();
+        if (jaVotou) {
+            document.querySelector('.btn-votar').textContent = '✅ Voto já registrado';
+            document.querySelector('.btn-votar').disabled = true;
+        }
+    </script>
+</body>
+</html>
