@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quomion OS - Sistema Operacional do Futuro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #0f0f1a 0%, #1a1a3e 50%, #0f0f1a 100%);
+            padding: 20px 0;
+            border-bottom: 2px solid #3a3aff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .logo span {
+            color: #6a6aff;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #6a6aff;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0a0a1a 0%, #12123a 50%, #0a0a1a 100%);
+            text-align: center;
+            padding: 100px 20px 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(58, 58, 255, 0.05) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .hero h1 span {
+            color: #6a6aff;
+        }
+        .hero p {
+            font-size: 20px;
+            color: #aaa;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+        .hero .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #3a3aff, #6a3aff);
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        .hero .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(58, 58, 255, 0.4);
+        }
+
+        /* Section Titles */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 60px;
+        }
+        .section-title span {
+            color: #6a6aff;
+        }
+
+        /* Propriedades */
+        #propriedades {
+            background: #0e0e1a;
+        }
+
+        .props-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .prop-card {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 16px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .prop-card:hover {
+            transform: translateY(-8px);
+            border-color: #6a6aff;
+        }
+        .prop-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .prop-card h3 {
+            font-size: 22px;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+        .prop-card p {
+            color: #999;
+            font-size: 15px;
+        }
+
+        /* Produtos */
+        #produtos {
+            background: #0a0a15;
+        }
+
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .produto-card {
+            background: linear-gradient(145deg, #14142a, #1a1a35);
+            border: 1px solid #2a2a4a;
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .produto-card:hover {
+            transform: translateY(-5px);
+            border-color: #6a6aff;
+        }
+        .produto-card .badge {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        .badge-pc {
+            background: #2a3a6a;
+            color: #8ab4ff;
+        }
+        .badge-mobile {
+            background: #3a2a5a;
+            color: #c08aff;
+        }
+        .badge-ambos {
+            background: #2a4a3a;
+            color: #7affb4;
+        }
+        .produto-card h3 {
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .produto-card p {
+            color: #999;
+            margin-bottom: 20px;
+        }
+        .produto-card ul {
+            list-style: none;
+        }
+        .produto-card ul li {
+            padding: 8px 0;
+            color: #bbb;
+            border-bottom: 1px solid #1f1f35;
+        }
+        .produto-card ul li::before {
+            content: '>';
+            color: #6a6aff;
+            font-weight: 700;
+            margin-right: 10px;
+        }
+        .produto-card .price {
+            margin-top: 20px;
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+        }
+        .produto-card .price span {
+            font-size: 14px;
+            color: #888;
+            font-weight: 400;
+        }
+
+        /* Contato */
+        #contato {
+            background: #0e0e1a;
+            text-align: center;
+        }
+        #contato p {
+            color: #999;
+            max-width: 500px;
+            margin: 0 auto 30px;
+        }
+        .contato-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .contato-links a {
+            color: #6a6aff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .contato-links a:hover {
+            color: #fff;
+        }
+
+        /* Footer */
+        footer {
+            background: #05050a;
+            text-align: center;
+            padding: 30px 20px;
+            color: #555;
+            font-size: 14px;
+            border-top: 1px solid #1a1a2e;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            header .container {
+                flex-wrap: wrap;
+            }
+            nav {
+                display: none;
+                width: 100%;
+                margin-top: 15px;
+                flex-direction: column;
+                text-align: center;
+            }
+            nav.show {
+                display: flex;
+            }
+            nav a {
+                margin: 8px 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 16px;
+            }
+            .section-title {
+                font-size: 28px;
+            }
+            .props-grid {
+                grid-template-columns: 1fr;
+            }
+            .produtos-grid {
+                grid-template-columns: 1fr;
+            }
+            .contato-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            section {
+                padding: 50px 0;
+            }
+            .hero {
+                padding: 60px 20px 50px;
+            }
+            .produto-card .price {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Quomion<span>OS</span></div>
+            <button class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('show')">☰</button>
+            <nav>
+                <a href="#propriedades">Propriedades</a>
+                <a href="#produtos">Produtos</a>
+                <a href="#keys">Keys</a>
+                <a href="#contato">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>O Futuro é <span>Quomion</span></h1>
+        <p>Um sistema operacional leve, seguro e moderno, projetado para oferecer o máximo de desempenho tanto no seu PC quanto no seu celular.</p>
+        <a href="#produtos" class="btn">Conheça os Produtos</a>
+    </section>
+
+    <section id="propriedades">
+        <div class="container">
+            <h2 class="section-title">Propriedades do <span>Quomion OS</span></h2>
+            <div class="props-grid">
+                <div class="prop-card">
+                    <div class="icon">⚡</div>
+                    <h3>Alta Performance</h3>
+                    <p>Núcleo otimizado que entrega velocidade máxima em qualquer hardware, de máquinas antigas aos dispositivos mais modernos.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🔒</div>
+                    <h3>Segurança Total</h3>
+                    <p>Arquitetura isolada com criptografia de ponta a ponta, protegendo seus dados contra ameaças e invasões.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🎨</div>
+                    <h3>Interface Adaptável</h3>
+                    <p>Design fluido que se adapta perfeitamente à sua tela, seja em um monitor de 27" ou na tela de um smartphone.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">📦</div>
+                    <h3>Ecosistema Leve</h3>
+                    <p>Apps nativos ultra rápidos e um gerenciador de pacotes inteligente que ocupa pouquíssimo espaço.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🔄</div>
+                    <h3>Atualizações Contínuas</h3>
+                    <p>Receba atualizações frequentes com novos recursos, correções de segurança e melhorias de desempenho.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🌐</div>
+                    <h3>Multiplataforma</h3>
+                    <p>Funciona em PCs (x86/x64) e dispositivos móveis (ARM), com suporte nativo a redes 4G/5G e Wi-Fi.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🔋</div>
+                    <h3>Eficiência Energética</h3>
+                    <p>Gerenciamento inteligente de energia que prolonga a bateria do seu notebook ou celular.</p>
+                </div>
+                <div class="prop-card">
+                    <div class="icon">🧩</div>
+                    <h3>Compatibilidade Total</h3>
+                    <p>Suporte a aplicativos Android, Linux e Windows via camada de compatibilidade nativa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="produtos">
+        <div class="container">
+            <h2 class="section-title">Nossos <span>Produtos</span></h2>
+            <div class="produtos-grid">
+                <div class="produto-card">
+                    <span class="badge badge-pc">PC</span>
+                    <h3>Quomion OS Desktop</h3>
+                    <p>Sistema completo para computadores, ideal para trabalho, jogos e desenvolvimento.</p>
+                    <ul>
+                        <li>Interface desktop completa com multitarefa</li>
+                        <li>Suporte a monitores múltiplos</li>
+                        <li>Terminal nativo com PowerShell e Bash</li>
+                        <li>Loja de aplicativos exclusiva</li>
+                        <li>Driver NVIDIA/AMD otimizado</li>
+                    </ul>
+                    <div class="price">Grátis <span>para uso pessoal</span></div>
+                </div>
+
+                <div class="produto-card">
+                    <span class="badge badge-mobile">Mobile</span>
+                    <h3>Quomion OS Mobile</h3>
+                    <p>Versão leve e inteligente para smartphones, com foco em fluidez e privacidade.</p>
+                    <ul>
+                        <li>Gestos intuitivos e navegação fluida</li>
+                        <li>Modo noturno adaptativo</li>
+                        <li>Gerenciamento inteligente de RAM</li>
+                        <li>Suporte a eSIM e Dual SIM</li>
+                        <li>Câmera com processamento IA nativo</li>
+                    </ul>
+                    <div class="price">Grátis <span>código aberto</span></div>
+                </div>
+
+                <div class="produto-card">
+                    <span class="badge badge-ambos">PC + Mobile</span>
+                    <h3>Quomion Sync</h3>
+                    <p>Ecosistema de sincronização entre seus dispositivos para uma experiência unificada.</p>
+                    <ul>
+                        <li>Sincronização instantânea de arquivos</li>
+                        <li>Área de transferência compartilhada</li>
+                        <li>Chamadas e mensagens direto do PC</li>
+                        <li>Controle remoto do celular pelo desktop</li>
+                        <li>Cloud pessoal com 10GB grátis</li>
+                    </ul>
+                    <div class="price">Grátis <span>para todos</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="keys">
+        <div class="container">
+            <h2 class="section-title">Keys <span>Premium</span></h2>
+            <p style="text-align:center;color:#999;max-width:600px;margin:0 auto 40px;">
+                Desbloqueie recursos exclusivos do Quomion OS com nossas keys premium. De R$10 a R$200, escolha a que mais se encaixa no seu estilo.
+            </p>
+            <div class="produtos-grid">
+                <div class="produto-card">
+                    <span class="badge badge-pc">R$ 10</span>
+                    <h3>Key Starter</h3>
+                    <p>Para quem quer começar com o pé direito.</p>
+                    <ul>
+                        <li>Temas exclusivos</li>
+                        <li>Wallpapers 4K</li>
+                        <li>Suporte prioritário 7 dias</li>
+                    </ul>
+                    <div class="price">R$ 10</div>
+                </div>
+                <div class="produto-card">
+                    <span class="badge badge-mobile">R$ 30</span>
+                    <h3>Key Performance</h3>
+                    <p>Mais velocidade e produtividade no seu dia.</p>
+                    <ul>
+                        <li>Modo game otimizado</li>
+                        <li>Boost de RAM e CPU</li>
+                        <li>Desativar anúncios do sistema</li>
+                        <li>Suporte prioritário 30 dias</li>
+                    </ul>
+                    <div class="price">R$ 30</div>
+                </div>
+                <div class="produto-card">
+                    <span class="badge badge-ambos">R$ 50</span>
+                    <h3>Key Security</h3>
+                    <p>Proteção máxima para seus dados.</p>
+                    <ul>
+                        <li>Criptografia avançada de arquivos</li>
+                        <li>Firewall inteligente</li>
+                        <li>VPN nativa ilimitada</li>
+                        <li>Modo anônimo</li>
+                        <li>Suporte prioritário 60 dias</li>
+                    </ul>
+                    <div class="price">R$ 50</div>
+                </div>
+                <div class="produto-card">
+                    <span class="badge badge-pc">R$ 80</span>
+                    <h3>Key Developer</h3>
+                    <p>Ferramentas profissionais para devs.</p>
+                    <ul>
+                        <li>Ambiente Docker nativo</li>
+                        <li>Servidor local integrado</li>
+                        <li>Compiladores otimizados</li>
+                        <li>API de sistema liberada</li>
+                        <li>Suporte prioritário 90 dias</li>
+                    </ul>
+                    <div class="price">R$ 80</div>
+                </div>
+                <div class="produto-card">
+                    <span class="badge badge-mobile">R$ 120</span>
+                    <h3>Key Ultimate Mobile</h3>
+                    <p>A experiência mobile definitiva.</p>
+                    <ul>
+                        <li>Multitarefa avançada (até 4 apps)</li>
+                        <li>Modo desktop via USB-C</li>
+                        <li>Gravação de tela sem limite</li>
+                        <li>IA assistente premium</li>
+                        <li>Suporte prioritário 180 dias</li>
+                    </ul>
+                    <div class="price">R$ 120</div>
+                </div>
+                <div class="produto-card">
+                    <span class="badge badge-ambos">R$ 200</span>
+                    <h3>Key Enterprise</h3>
+                    <p>Tudo incluso, sem limites.</p>
+                    <ul>
+                        <li>Todas as features anteriores</li>
+                        <li>Cloud 500GB</li>
+                        <li>Licença vitalícia</li>
+                        <li>Acesso antecipado a betas</li>
+                        <li>Suporte prioritário vitalício</li>
+                    </ul>
+                    <div class="price">R$ 200</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato">
+        <div class="container">
+            <h2 class="section-title">Redes <span>Sociais</span></h2>
+            <p style="color:#999;max-width:500px;margin:0 auto 30px;">Siga a gente no TikTok para ficar por dentro das novidades!</p>
+            <div class="contato-links">
+                <a href="https://tiktok.com/@quomionmania" target="_blank">🎵 @quomionmania</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            Quomion OS &copy; 2026 — Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('nav').classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
