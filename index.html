@@ -163,7 +163,13 @@
         .admin-header .btn-danger { background: #3a2a2a; border-color: #5a3a3a; }
         .admin-header .btn-danger:hover { background: #5a3a3a; }
 
-        .admin-body { display: flex; min-height: calc(100vh - 60px); }
+        .admin-body { display: flex; min-height: calc(100vh - 60px); position: relative; }
+        #adminPanelContent { flex: 1; display: flex; min-height: calc(100vh - 60px); }
+        #adminLoginOverlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000000; z-index: 100; display: flex; align-items: center; justify-content: center;
+        }
+        #adminLoginOverlay.hidden { display: none; }
 
         .admin-sidebar {
             width: 220px; background: #0a0a0a; border-right: 1px solid #222; padding: 20px 0; flex-shrink: 0;
@@ -581,20 +587,35 @@
                 </div>
             </div>
         </div>
-        <div class="admin-body">
+        <div class="admin-body" id="adminBody">
+            <!-- Full-page login overlay -->
+            <div id="adminLoginOverlay" class="hidden">
+                <div class="modal" style="max-width:420px;margin:auto;">
+                    <h2 style="color:#fff;margin-bottom:10px;font-size:24px;">🔐 Admin Login</h2>
+                    <p style="color:#888;margin-bottom:25px;font-size:14px;">Enter credentials to access the admin panel.</p>
+                    <div id="erroAdminLogin" class="erro" style="display:none;color:#ff4a4a;margin-bottom:12px;font-size:14px;">Invalid credentials!</div>
+                    <input type="email" id="adminLoginEmail" placeholder="Admin email" style="width:100%;padding:14px;border:1px solid #3a3a3a;border-radius:8px;background:#0e0e0e;color:#e0e0e0;font-size:16px;margin-bottom:15px;outline:none;">
+                    <input type="password" id="adminLoginSenha" placeholder="Password" style="width:100%;padding:14px;border:1px solid #3a3a3a;border-radius:8px;background:#0e0e0e;color:#e0e0e0;font-size:16px;margin-bottom:15px;outline:none;" onkeydown="if(event.key==='Enter')entrarAdminPainel()">
+                    <button onclick="entrarAdminPainel()" style="width:100%;padding:14px;background:linear-gradient(135deg,#666,#999);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer;">🔓 Unlock Panel</button>
+                    <div style="margin-top:15px;font-size:12px;color:#555;">Only authorized administrators.</div>
+                </div>
+            </div>
+
+            <!-- Admin panel content (hidden until login) -->
+            <div id="adminPanelContent" style="display: flex;">
             <div class="admin-sidebar" id="adminSidebar">
-                <div class="s-item" data-tab="dashboard" onclick="mudarTab(this)">📊 Dashboard</div>
+                <div class="s-item ativo" data-tab="dashboard" onclick="mudarTab(this)">📊 Dashboard</div>
                 <div class="s-item" data-tab="maquinas" onclick="mudarTab(this)">🖥️ Machine Restriction</div>
                 <div class="s-item" data-tab="codigo" onclick="mudarTab(this)">📝 Code Editor</div>
                 <div class="s-item" data-tab="contas" onclick="mudarTab(this)">👥 Admin Accounts</div>
                 <div class="s-item" data-tab="keys" onclick="mudarTab(this)">🔑 Premium Keys</div>
-                <div class="s-item ativo" data-tab="config" onclick="mudarTab(this)">⚙️ Settings</div>
+                <div class="s-item" data-tab="config" onclick="mudarTab(this)">⚙️ Settings</div>
             </div>
             <div class="admin-content">
                 <div id="adminAlert" class="alert"></div>
 
                 <!-- DASHBOARD -->
-                <div class="tab-content" id="tabDashboard">
+                <div class="tab-content ativo" id="tabDashboard">
                     <h2>📊 <span>Dashboard</span></h2>
                     <div class="stats-grid">
                         <div class="stat-card"><div class="numero" id="statMaquinas">0</div><div class="rotulo">Registered Machines</div></div>
@@ -652,19 +673,23 @@
                 <!-- CODE EDITOR -->
                 <div class="tab-content" id="tabCodigo">
                     <h2>📝 <span>Code Editor</span></h2>
-                    <p style="color:#888;margin-bottom:20px;font-size:14px;">Edit the complete HTML code of the site. Changes are saved in the browser and applied instantly.</p>
-                    <div class="card">
-                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:10px;">
-                            <h3 style="margin:0;">📄 Site HTML Code</h3>
-                            <div>
-                                <button class="btn btn-success" onclick="salvarCodigoSite()">💾 Save Code</button>
-                                <button class="btn btn-warning" onclick="restaurarCodigoOriginal()">↩️ Restore Original</button>
+                    <p style="color:#888;margin-bottom:20px;font-size:14px;">Edit the complete HTML code of the site with live preview.</p>
+                    <div class="card" style="padding:0;overflow:hidden;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:15px 20px;border-bottom:1px solid #3a3a3a;flex-wrap:wrap;gap:10px;">
+                            <h3 style="margin:0;font-size:14px;color:#aaa;">📄 index.html</h3>
+                            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                <button class="btn btn-sm" onclick="atualizarPreview()">👁️ Preview</button>
+                                <button class="btn btn-sm btn-success" onclick="salvarCodigoSite()">💾 Save</button>
+                                <button class="btn btn-sm btn-warning" onclick="restaurarCodigoOriginal()">↩️ Reset</button>
                             </div>
                         </div>
-                        <textarea id="editorCodigo" style="min-height:500px;font-size:13px;line-height:1.5;"></textarea>
-                        <div style="color:#888;font-size:12px;margin-top:8px;">
-                            ⚠️ Edit carefully. HTML errors may break the site.
-                            <span id="codigoStatus" style="color:#66ff66;margin-left:10px;"></span>
+                        <div style="display:flex;min-height:520px;">
+                            <textarea id="editorCodigo" spellcheck="false" style="flex:1;min-height:520px;font-size:13px;line-height:1.6;padding:16px;border:none;border-right:1px solid #3a3a3a;background:#0a0a0a;color:#e0e0e0;font-family:'Consolas','Courier New',monospace;resize:none;outline:none;" oninput="debouncedPreview()"></textarea>
+                            <iframe id="previewFrame" style="flex:1;min-height:520px;border:none;background:#fff;"></iframe>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px;border-top:1px solid #3a3a3a;color:#666;font-size:12px;">
+                            <span>Ctrl+S Save · Ctrl+Shift+P Preview</span>
+                            <span id="codigoStatus" style="color:#66ff66;"></span>
                         </div>
                     </div>
                 </div>
@@ -728,11 +753,11 @@
                 </div>
 
                 <!-- SETTINGS -->
-                <div class="tab-content ativo" id="tabConfig">
+                <div class="tab-content" id="tabConfig">
                     <h2>⚙️ <span>Site Settings</span></h2>
 
                     <!-- Config Login Gate -->
-                    <div class="card" id="configLoginGate" style="display: none;">
+                    <div class="card" id="configLoginGate">
                         <h3>🔐 Settings Access</h3>
                         <p style="color:#888;margin-bottom:15px;font-size:14px;">Enter admin credentials to access the settings panel.</p>
                         <div id="erroConfigLogin" class="erro" style="display:none;color:#ff4a4a;margin-bottom:12px;">Invalid credentials!</div>
@@ -751,7 +776,7 @@
                         </div>
                     </div>
 
-                    <div id="configContent" style="display: block;">
+                    <div id="configContent" style="display:none;">
                     <div class="card">
                         <h3>🎨 Theme Colors</h3>
                         <div class="form-row">
@@ -783,9 +808,10 @@
                     </div>
                     </div><!-- /configContent -->
                 </div>
-            </div>
-        </div>
-    </div>
+            </div><!-- /admin-content -->
+            </div><!-- /adminPanelContent -->
+        </div><!-- /admin-body -->
+    </div><!-- /adminPanel -->
 
     <script>
         // ═══════════════════════════════════════════════════════════════
@@ -925,21 +951,61 @@
             panel.style.display = 'block';
             panel.classList.add('show');
             document.getElementById('publicSite').style.display = 'none';
-            // Navigate to Settings tab
-            const settingsTab = document.querySelector('.s-item[data-tab="config"]');
-            if (settingsTab) mudarTab(settingsTab);
             // Check if already logged in
             if (localStorage.getItem('quomionAdminLogado')) {
-                document.getElementById('configLoginGate').style.display = 'none';
-                document.getElementById('configContent').style.display = 'block';
+                document.getElementById('adminLoginOverlay').classList.add('hidden');
+                document.getElementById('adminPanelContent').style.display = 'flex';
+                const firstTab = document.querySelector('.s-item');
+                if (firstTab) mudarTab(firstTab);
                 carregarAdmin();
             } else {
-                document.getElementById('configLoginGate').style.display = 'block';
-                document.getElementById('configContent').style.display = 'none';
-                document.getElementById('configLoginEmail').value = '';
-                document.getElementById('configLoginSenha').value = '';
-                document.getElementById('configLoginEmail').focus();
+                document.getElementById('adminLoginOverlay').classList.remove('hidden');
+                document.getElementById('adminPanelContent').style.display = 'none';
+                document.getElementById('adminLoginEmail').value = '';
+                document.getElementById('adminLoginSenha').value = '';
+                document.getElementById('adminLoginEmail').focus();
             }
+        }
+
+        function entrarAdminPainel() {
+            const email = document.getElementById('adminLoginEmail').value.trim().toLowerCase();
+            const senha = document.getElementById('adminLoginSenha').value;
+            const admins = getAdmins();
+
+            if (email === ADMIN_PADRAO.email.toLowerCase() && senha === ADMIN_PADRAO.senha) {
+                localStorage.setItem('quomionAdminLogado', JSON.stringify({
+                    email: ADMIN_PADRAO.email,
+                    nome: ADMIN_PADRAO.nome,
+                    tipo: 'master'
+                }));
+                desbloquearAdminPainel();
+                return;
+            }
+
+            const admin = admins.find(a => a.email.toLowerCase() === email && a.senha === senha);
+            if (admin) {
+                localStorage.setItem('quomionAdminLogado', JSON.stringify({
+                    email: admin.email,
+                    nome: admin.nome,
+                    tipo: admin.tipo || 'admin'
+                }));
+                desbloquearAdminPainel();
+            } else {
+                const erro = document.getElementById('erroAdminLogin');
+                erro.style.display = 'block';
+                erro.textContent = 'Incorrect email or password!';
+            }
+        }
+
+        function desbloquearAdminPainel() {
+            document.getElementById('adminLoginOverlay').classList.add('hidden');
+            document.getElementById('adminPanelContent').style.display = 'flex';
+            document.getElementById('erroAdminLogin').style.display = 'none';
+            const admin = JSON.parse(localStorage.getItem('quomionAdminLogado'));
+            document.getElementById('adminUserInfo').textContent = '👤 ' + (admin ? admin.nome : 'Admin');
+            const firstTab = document.querySelector('.s-item');
+            if (firstTab) mudarTab(firstTab);
+            carregarAdmin();
         }
 
         function abrirModalAdmin() {
@@ -990,8 +1056,8 @@
             document.getElementById('adminPanel').classList.remove('show');
             document.getElementById('adminPanel').style.display = 'none';
             document.getElementById('publicSite').style.display = 'block';
-            document.getElementById('configLoginGate').style.display = 'block';
-            document.getElementById('configContent').style.display = 'none';
+            document.getElementById('adminLoginOverlay').classList.remove('hidden');
+            document.getElementById('adminPanelContent').style.display = 'none';
             window.scrollTo({ top: 0 });
         }
 
@@ -1006,7 +1072,7 @@
                     nome: ADMIN_PADRAO.nome,
                     tipo: 'master'
                 }));
-                abrirConfigContent();
+                desbloquearAdminPainel();
                 return;
             }
 
@@ -1017,20 +1083,12 @@
                     nome: admin.nome,
                     tipo: admin.tipo || 'admin'
                 }));
-                abrirConfigContent();
+                desbloquearAdminPainel();
             } else {
                 const erro = document.getElementById('erroConfigLogin');
                 erro.style.display = 'block';
                 erro.textContent = 'Incorrect email or password!';
             }
-        }
-
-        function abrirConfigContent() {
-            document.getElementById('configLoginGate').style.display = 'none';
-            document.getElementById('configContent').style.display = 'block';
-            document.getElementById('erroConfigLogin').style.display = 'none';
-            document.getElementById('adminUserInfo').textContent = '👤 ' + ADMIN_PADRAO.nome;
-            carregarAdmin();
         }
 
         function voltarSite() {
@@ -1042,11 +1100,12 @@
             panel.style.display = 'block';
             panel.classList.add('show');
             document.getElementById('publicSite').style.display = 'none';
+            document.getElementById('adminLoginOverlay').classList.add('hidden');
+            document.getElementById('adminPanelContent').style.display = 'flex';
             const admin = JSON.parse(localStorage.getItem('quomionAdminLogado'));
             document.getElementById('adminUserInfo').textContent = '👤 ' + (admin ? admin.nome : 'Admin');
-            // Unlock settings tab if navigating there
-            document.getElementById('configLoginGate').style.display = 'none';
-            document.getElementById('configContent').style.display = 'block';
+            const firstTab = document.querySelector('.s-item');
+            if (firstTab) mudarTab(firstTab);
             carregarAdmin();
         }
 
@@ -1240,17 +1299,16 @@
         // ═══════════════════════════════════════════════════════════════
         // CODE EDITOR
         // ═══════════════════════════════════════════════════════════════
+        let previewTimeout = null;
+
         function getCodigoSalvo() {
             return localStorage.getItem('quomionCodigoSite') || '';
         }
 
         function carregarEditorCodigo() {
             const codigo = getCodigoSalvo();
-            if (codigo) {
-                document.getElementById('editorCodigo').value = codigo;
-            } else {
-                document.getElementById('editorCodigo').value = obterHtmlOriginal();
-            }
+            document.getElementById('editorCodigo').value = codigo || obterHtmlOriginal();
+            atualizarPreview();
         }
 
         function obterHtmlOriginal() {
@@ -1264,19 +1322,57 @@
                 return;
             }
             localStorage.setItem('quomionCodigoSite', codigo);
-            document.getElementById('codigoStatus').textContent = '✅ Code saved successfully!';
-            mostrarAlerta('Site code saved successfully!', 'success');
-            setTimeout(() => document.getElementById('codigoStatus').textContent = '', 3000);
+            document.getElementById('codigoStatus').textContent = '✅ Saved!';
+            mostrarAlerta('Code saved successfully!', 'success');
+            setTimeout(() => document.getElementById('codigoStatus').textContent = '', 2000);
         }
 
         function restaurarCodigoOriginal() {
             if (!confirm('Are you sure? This will restore the original site code and lose all changes.')) return;
             localStorage.removeItem('quomionCodigoSite');
             document.getElementById('editorCodigo').value = obterHtmlOriginal();
-            document.getElementById('codigoStatus').textContent = '✅ Original code restored!';
-            mostrarAlerta('Original code restored! Reload the page to see the changes.', 'info');
-            setTimeout(() => document.getElementById('codigoStatus').textContent = '', 3000);
+            document.getElementById('codigoStatus').textContent = '✅ Restored!';
+            atualizarPreview();
+            mostrarAlerta('Original code restored!', 'info');
+            setTimeout(() => document.getElementById('codigoStatus').textContent = '', 2000);
         }
+
+        function debouncedPreview() {
+            if (previewTimeout) clearTimeout(previewTimeout);
+            previewTimeout = setTimeout(atualizarPreview, 500);
+        }
+
+        function atualizarPreview() {
+            const iframe = document.getElementById('previewFrame');
+            if (!iframe) return;
+            const html = document.getElementById('editorCodigo').value;
+            iframe.srcdoc = html;
+            const status = document.getElementById('codigoStatus');
+            if (status) {
+                status.textContent = '✅ Preview updated';
+                setTimeout(() => {
+                    if (status.textContent === '✅ Preview updated') status.textContent = '';
+                }, 1500);
+            }
+        }
+
+        // Keyboard shortcuts for the code editor
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 's') {
+                const editor = document.getElementById('editorCodigo');
+                if (editor && document.activeElement === editor) {
+                    e.preventDefault();
+                    salvarCodigoSite();
+                }
+            }
+            if (e.ctrlKey && e.shiftKey && (e.key === 'p' || e.key === 'P')) {
+                const editor = document.getElementById('editorCodigo');
+                if (editor && document.activeElement === editor) {
+                    e.preventDefault();
+                    atualizarPreview();
+                }
+            }
+        });
 
         // ═══════════════════════════════════════════════════════════════
         // ADMIN ACCOUNTS
@@ -1533,7 +1629,7 @@
             document.getElementById('editDescricao').value = config.descricao;
             document.getElementById('corPrimaria').value = config.corPrimaria;
             document.getElementById('corSecundaria').value = config.corSecundaria;
-            document.getElementById('editorCodigo').value = getCodigoSalvo() || obterHtmlOriginal();
+            carregarEditorCodigo();
             registrarMaquinaAtual();
             exibirMinhaMaquina();
             atualizarListasMaquinas();
